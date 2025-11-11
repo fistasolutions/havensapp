@@ -1,0 +1,822 @@
+openapi: 3.0.3
+info:
+  title: Havens App API
+  description: RESTful API for Havens App MVP - Mental Health and Wellness Mobile Application
+  version: 1.0.0
+  contact:
+    name: Havens App Team
+
+servers:
+  - url: https://api.havensapp.com/v1
+    description: Production server
+  - url: https://staging-api.havensapp.com/v1
+    description: Staging server
+
+tags:
+  - name: Authentication
+    description: User authentication and authorization
+  - name: Users
+    description: User management and profiles
+  - name: Mood
+    description: Mood tracking endpoints
+  - name: Journal
+    description: Journaling endpoints
+  - name: Chatbot
+    description: AI chatbot conversation endpoints
+  - name: Exercises
+    description: Self-help exercise endpoints
+  - name: Analytics
+    description: Privacy-compliant analytics endpoints
+  - name: Provider
+    description: Provider-specific endpoints (HIPAA-compliant)
+  - name: Partner
+    description: Partner mode endpoints
+  - name: Family
+    description: Family/Friends group endpoints
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        role:
+          type: string
+          enum: [Individual, Provider, Partner, FamilyFriends, Kid]
+        firstName:
+          type: string
+          nullable: true
+        lastName:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+
+    MoodEntry:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        userId:
+          type: string
+          format: uuid
+        emotionLabels:
+          type: array
+          items:
+            type: string
+        intensity:
+          type: integer
+          minimum: 1
+          maximum: 10
+          nullable: true
+        notes:
+          type: string
+          nullable: true
+        timestamp:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+
+    JournalEntry:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        userId:
+          type: string
+          format: uuid
+        promptId:
+          type: string
+          format: uuid
+          nullable: true
+        content:
+          type: string
+        sentimentScore:
+          type: number
+          format: float
+          minimum: -1
+          maximum: 1
+          nullable: true
+        sentimentLabel:
+          type: string
+          enum: [Positive, Neutral, Negative]
+          nullable: true
+        isDraft:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+
+    ChatbotMessage:
+      type: object
+      properties:
+        role:
+          type: string
+          enum: [user, assistant, system]
+        content:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+
+    ChatbotConversation:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        userId:
+          type: string
+          format: uuid
+        conversationFlow:
+          type: string
+          enum: [AnxietyRelief, StressManagement, DepressionSupport, General, Custom]
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChatbotMessage'
+        crisisDetected:
+          type: boolean
+        isActive:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        code:
+          type: integer
+
+paths:
+  /auth/register:
+    post:
+      tags: [Authentication]
+      summary: Register new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password, role]
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  minLength: 8
+                role:
+                  type: string
+                  enum: [Individual, Provider, Partner, FamilyFriends, Kid]
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+      responses:
+        '201':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /auth/login:
+    post:
+      tags: [Authentication]
+      summary: Login user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accessToken:
+                    type: string
+                  refreshToken:
+                    type: string
+                  user:
+                    $ref: '#/components/schemas/User'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /mood/entries:
+    get:
+      tags: [Mood]
+      summary: Get user mood entries
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: startDate
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: endDate
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 50
+      responses:
+        '200':
+          description: List of mood entries
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  entries:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MoodEntry'
+                  total:
+                    type: integer
+
+    post:
+      tags: [Mood]
+      summary: Create mood entry
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [emotionLabels, timestamp]
+              properties:
+                emotionLabels:
+                  type: array
+                  items:
+                    type: string
+                intensity:
+                  type: integer
+                  minimum: 1
+                  maximum: 10
+                notes:
+                  type: string
+                timestamp:
+                  type: string
+                  format: date-time
+      responses:
+        '201':
+          description: Mood entry created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MoodEntry'
+
+  /mood/trends:
+    get:
+      tags: [Mood]
+      summary: Get mood trends
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: period
+          in: query
+          schema:
+            type: string
+            enum: [Daily, Weekly, Monthly]
+            default: Weekly
+        - name: startDate
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: endDate
+          in: query
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Mood trends data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  trends:
+                    type: array
+                    items:
+                      type: object
+
+  /journal/entries:
+    get:
+      tags: [Journal]
+      summary: Get user journal entries
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: includeDrafts
+          in: query
+          schema:
+            type: boolean
+            default: false
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 50
+      responses:
+        '200':
+          description: List of journal entries
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  entries:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/JournalEntry'
+
+    post:
+      tags: [Journal]
+      summary: Create journal entry
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [content]
+              properties:
+                promptId:
+                  type: string
+                  format: uuid
+                content:
+                  type: string
+                  minLength: 10
+                  maxLength: 10000
+                isDraft:
+                  type: boolean
+                  default: false
+      responses:
+        '201':
+          description: Journal entry created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JournalEntry'
+
+  /journal/prompts:
+    get:
+      tags: [Journal]
+      summary: Get journal prompts
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: theme
+          in: query
+          schema:
+            type: string
+            enum: [Gratitude, Goals, Stress, Relationships, Reflection, General]
+        - name: personalized
+          in: query
+          schema:
+            type: boolean
+            default: true
+      responses:
+        '200':
+          description: List of journal prompts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  prompts:
+                    type: array
+                    items:
+                      type: object
+
+  /chatbot/conversations:
+    get:
+      tags: [Chatbot]
+      summary: Get user conversations
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of conversations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  conversations:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ChatbotConversation'
+
+    post:
+      tags: [Chatbot]
+      summary: Create new conversation
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                conversationFlow:
+                  type: string
+                  enum: [AnxietyRelief, StressManagement, DepressionSupport, General, Custom]
+      responses:
+        '201':
+          description: Conversation created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatbotConversation'
+
+  /chatbot/conversations/{conversationId}/messages:
+    post:
+      tags: [Chatbot]
+      summary: Send message in conversation
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: conversationId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [content]
+              properties:
+                content:
+                  type: string
+      responses:
+        '200':
+          description: Message sent, AI response returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  userMessage:
+                    $ref: '#/components/schemas/ChatbotMessage'
+                  assistantMessage:
+                    $ref: '#/components/schemas/ChatbotMessage'
+                  crisisDetected:
+                    type: boolean
+
+  /exercises:
+    get:
+      tags: [Exercises]
+      summary: Get self-help exercises
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: type
+          in: query
+          schema:
+            type: string
+            enum: [Breathing, Mindfulness, Affirmation, DistressTolerance, ProgressiveRelaxation]
+      responses:
+        '200':
+          description: List of exercises
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  exercises:
+                    type: array
+                    items:
+                      type: object
+
+  /exercises/{exerciseId}/complete:
+    post:
+      tags: [Exercises]
+      summary: Mark exercise as completed
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: exerciseId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                duration:
+                  type: integer
+                rating:
+                  type: integer
+                  minimum: 1
+                  maximum: 5
+      responses:
+        '200':
+          description: Exercise marked as completed
+
+  /data/export:
+    post:
+      tags: [Users]
+      summary: Export user data
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                format:
+                  type: string
+                  enum: [JSON, CSV]
+                  default: JSON
+                dataTypes:
+                  type: array
+                  items:
+                    type: string
+                  default: [all]
+      responses:
+        '200':
+          description: Data export file
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  downloadUrl:
+                    type: string
+                  expiresAt:
+                    type: string
+                    format: date-time
+
+  /data/delete:
+    post:
+      tags: [Users]
+      summary: Delete user account and data
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [confirmation]
+              properties:
+                confirmation:
+                  type: string
+                  enum: [DELETE]
+      responses:
+        '200':
+          description: Account deletion initiated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  deletionScheduledAt:
+                    type: string
+                    format: date-time
+
+  /analytics/events:
+    post:
+      tags: [Analytics]
+      summary: Record analytics event (privacy-compliant)
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [eventType, featureUsed]
+              properties:
+                eventType:
+                  type: string
+                featureUsed:
+                  type: string
+                sessionDuration:
+                  type: integer
+                metadata:
+                  type: object
+      responses:
+        '201':
+          description: Event recorded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recorded:
+                    type: boolean
+
+  /provider/clients:
+    get:
+      tags: [Provider]
+      summary: Get provider's clients (HIPAA-compliant)
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of clients
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  clients:
+                    type: array
+                    items:
+                      type: object
+
+  /provider/clients/{clientId}/mood-trends:
+    get:
+      tags: [Provider]
+      summary: Get client mood trends (read-only, with consent)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: clientId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Client mood trends
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /partner/pairing:
+    post:
+      tags: [Partner]
+      summary: Create partner pairing invitation
+      security:
+        - bearerAuth: []
+      responses:
+        '201':
+          description: Pairing code generated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pairingCode:
+                    type: string
+
+  /partner/pairing/join:
+    post:
+      tags: [Partner]
+      summary: Join partner pairing with code
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [pairingCode]
+              properties:
+                pairingCode:
+                  type: string
+      responses:
+        '200':
+          description: Pairing successful
+
+  /family/groups:
+    get:
+      tags: [Family]
+      summary: Get user's family groups
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of family groups
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  groups:
+                    type: array
+                    items:
+                      type: object
+
+    post:
+      tags: [Family]
+      summary: Create family group
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name:
+                  type: string
+      responses:
+        '201':
+          description: Family group created
+
+  /family/groups/{groupId}/mood-polls:
+    post:
+      tags: [Family]
+      summary: Create anonymous mood poll
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: groupId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [question]
+              properties:
+                question:
+                  type: string
+      responses:
+        '201':
+          description: Mood poll created
+
