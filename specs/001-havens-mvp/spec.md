@@ -3,7 +3,7 @@
 **Feature Branch**: `001-havens-mvp`  
 **Created**: 2025-11-11  
 **Status**: Draft  
-**Input**: User description: "Build a comprehensive mental health and wellness mobile application MVP called 'Havens App' (also known as 'Hevan') that provides 24/7 AI-powered emotional support through evidence-based therapeutic techniques. The app must be built as a React Native mobile application for iOS and Android, with a mobile-first design approach."
+**Input**: User description: "Build a comprehensive mental health and wellness mobile application MVP called 'Havens App' that provides 24/7 AI-powered emotional support through evidence-based therapeutic techniques. The app must be built as a React Native mobile application for iOS and Android, with a mobile-first design approach."
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -91,9 +91,9 @@ A user can select their role during onboarding (Individual, Provider, Partner, F
 
 1. **Given** a new user opens the app, **When** they complete onboarding, **Then** they see a role selector: "Individual / Provider / Partner / Family-Friends / Kid"
 2. **Given** a user selects "Provider", **When** they access the app, **Then** they see provider-specific features like client mood check-ins and HIPAA-compliant data handling
-3. **Given** a user selects "Partner", **When** they use the app, **Then** they can pair with their partner for shared journals and joint mood tracking
-4. **Given** a parent selects "Kid" mode, **When** they set up the account, **Then** they must complete parental oversight setup and the child sees age-appropriate, emoji-rich interfaces
-5. **Given** a user selects "Family-Friends", **When** they use the app, **Then** they can invite family members for anonymous group mood polls
+3. **Given** a user selects "Partner", **When** they use the app, **Then** they can pair with their partner for shared journals and joint mood tracking (requires explicit consent from both parties)
+4. **Given** a parent selects "Kid" mode, **When** they set up the account, **Then** they must complete COPPA-compliant parental consent, parental oversight setup, and the child sees age-appropriate, emoji-rich interfaces with content filtering
+5. **Given** a user selects "Family-Friends", **When** they use the app, **Then** they can invite family members for anonymous group mood polls (requires explicit consent from all participants)
 
 ---
 
@@ -130,7 +130,7 @@ The app collects privacy-compliant analytics (anonymized, aggregated) including 
 ### Functional Requirements
 
 - **FR-001**: System MUST provide a text-based AI chatbot interface accessible 24/7
-- **FR-002**: System MUST support 5-10 predefined conversation flows (anxiety relief, stress management, depression support, etc.)
+- **FR-002**: System MUST support 5-10 predefined conversation flows (anxiety relief, stress management, depression support, etc.). Minimum 5 flows required for MVP, up to 10 flows for full release.
 - **FR-003**: System MUST personalize chatbot responses based on user inputs and conversation history
 - **FR-004**: System MUST integrate chatbot with mood tracking data for contextual prompts
 - **FR-005**: System MUST provide mood tracking with 10-20 emotion labels
@@ -139,7 +139,7 @@ The app collects privacy-compliant analytics (anonymized, aggregated) including 
 - **FR-008**: System MUST support offline mood logging with local storage
 - **FR-009**: System MUST allow users to export mood data in privacy-compliant format
 - **FR-010**: System MUST generate AI-powered journaling prompts personalized based on mood logs
-- **FR-011**: System MUST provide 10-15 journaling templates focused on common themes (gratitude, goal-setting, stress reflection)
+- **FR-011**: System MUST provide 10-15 journaling templates focused on common themes (gratitude, goal-setting, stress reflection). Minimum 10 templates required for MVP, up to 15 templates for full release.
 - **FR-012**: System MUST perform sentiment analysis on journal entries
 - **FR-013**: System MUST suggest insights or reframing based on journal sentiment
 - **FR-014**: System MUST support offline journaling with local storage
@@ -150,7 +150,7 @@ The app collects privacy-compliant analytics (anonymized, aggregated) including 
 - **FR-019**: System MUST provide provider-specific features (client mood check-ins, resource recommendations) with HIPAA compliance
 - **FR-020**: System MUST support partner pairing for shared journals and joint mood tracking
 - **FR-021**: System MUST provide family/friends group features (anonymous mood polls, collective wellness tracking)
-- **FR-022**: System MUST provide kid-friendly interface with parental oversight and COPPA compliance
+- **FR-022**: System MUST provide kid-friendly interface with parental oversight and COPPA compliance. This includes: (1) Parental consent collection during account setup, (2) Parental oversight dashboard for monitoring child's activity, (3) Content filtering and age-appropriate language, (4) Alert system for concerning content detection, (5) Parental controls for data sharing and privacy settings.
 - **FR-023**: System MUST collect privacy-compliant analytics (anonymized, aggregated) with user consent
 - **FR-024**: System MUST provide feedback forms after sessions
 - **FR-025**: System MUST encrypt all mental health data at rest and in transit
@@ -196,7 +196,7 @@ The app collects privacy-compliant analytics (anonymized, aggregated) including 
 - **SC-012**: Users can export their complete data in under 1 minute
 - **SC-013**: 90% of users successfully select their role during onboarding
 - **SC-014**: App supports 10,000+ concurrent users in beta without performance degradation
-- **SC-015**: 85% of users provide positive feedback on therapeutic content quality and empathy
+- **SC-015**: 85% of users provide positive feedback (4+ stars out of 5, or "satisfied"/"very satisfied" rating) on therapeutic content quality and empathy
 
 ## Privacy & Security Requirements *(mandatory for data-handling features)*
 
@@ -209,7 +209,7 @@ The app collects privacy-compliant analytics (anonymized, aggregated) including 
 - **PRIV-007**: Analytics data MUST be anonymized and aggregated - no personally identifiable information in analytics
 - **PRIV-008**: Provider access to client data MUST be read-only and require explicit client consent
 - **PRIV-009**: Kids mode MUST comply with COPPA requirements including parental consent and oversight
-- **PRIV-010**: All authentication MUST use secure methods (OAuth 2.0, secure tokens) with multi-factor authentication support for providers
+- **PRIV-010**: All authentication MUST use secure methods (OAuth 2.0, secure tokens) with multi-factor authentication (MFA) REQUIRED for provider accounts. MFA must support at least one of: SMS codes, authenticator apps (TOTP), or email verification codes.
 - **PRIV-011**: Data retention policies MUST be clearly defined and communicated to users
 - **PRIV-012**: System MUST comply with GDPR right to be forgotten, CCPA data deletion rights, and other regional privacy regulations
 - **PRIV-013**: All data access MUST be logged in audit trails, especially for provider mode
@@ -218,7 +218,7 @@ The app collects privacy-compliant analytics (anonymized, aggregated) including 
 ## Evidence-Based Requirements *(mandatory for therapeutic features)*
 
 - **EVID-001**: All therapeutic content MUST be grounded in evidence-based practices: Cognitive Behavioral Therapy (CBT), Acceptance and Commitment Therapy (ACT), Dialectical Behavior Therapy (DBT), Mindfulness, Positive Psychology, and Social-Emotional Learning (SEL)
-- **EVID-002**: All therapeutic content (chatbot scripts, journaling prompts, self-help exercises) MUST be reviewed by licensed mental health professionals before deployment
+- **EVID-002**: All therapeutic content (chatbot scripts, journaling prompts, self-help exercises) MUST be reviewed by licensed mental health professionals before deployment. A formal content review workflow must be established with: (1) Content submission checklist, (2) Professional reviewer assignment, (3) Review criteria and approval process, (4) Content version tracking, (5) Documentation of review decisions.
 - **EVID-003**: All therapeutic features MUST include clear safety disclaimers that the app is not a substitute for professional mental health care
 - **EVID-004**: Chatbot MUST include crisis detection algorithms to identify high-risk language (suicidal thoughts, self-harm, severe distress)
 - **EVID-005**: When crisis language is detected, system MUST immediately provide crisis resources, emergency contacts, and escalation options

@@ -328,6 +328,9 @@
 - [x] T162 [P] [US5] Create AccountCreationScreen component in src/screens/auth/AccountCreationScreen.tsx
 - [x] T163 [P] [US5] Create ProviderVerificationScreen component in src/screens/auth/ProviderVerificationScreen.tsx
 - [x] T164 [P] [US5] Create ParentSetupScreen component in src/screens/onboarding/ParentSetupScreen.tsx
+- [x] T164a [P] [US5] Implement COPPA-compliant parental consent workflow in src/screens/onboarding/ParentSetupScreen.tsx
+- [x] T164b [P] [US5] Implement parental oversight dashboard for kids mode in src/screens/role-specific/ParentalOversightScreen.tsx
+- [x] T164c [P] [US5] Implement content filtering and alert system for kids mode in api/src/services/kidsModeService.ts
 - [x] T165 [P] [US5] Create LoginScreen component in src/screens/auth/LoginScreen.tsx
 - [x] T166 [P] [US5] Create ProviderDashboard screen in src/screens/role-specific/ProviderDashboard.tsx
 - [x] T167 [P] [US5] Create PartnerPairingScreen in src/screens/role-specific/PartnerPairingScreen.tsx
@@ -456,6 +459,7 @@
 - [ ] T233 [P] Implement data retention policy enforcement in api/src/services/dataRetention.ts
 - [ ] T234 [P] Security audit and penetration testing
 - [ ] T235 [P] GDPR/CCPA compliance verification
+- [ ] T255 [P] [US5] Implement multi-factor authentication (MFA) for provider accounts in api/src/routes/auth.ts and src/screens/auth/ProviderVerificationScreen.tsx
 
 ### Accessibility
 
@@ -472,6 +476,13 @@
 - [ ] T243 [P] Performance testing (60fps, <2s launch, <500ms transitions)
 - [ ] T244 [P] Load testing for 10k+ concurrent users
 - [ ] T245 [P] Accessibility testing with automated tools
+
+### Evidence-Based Content Review
+
+- [ ] T256 [P] Create professional content review workflow document in docs/content-review-workflow.md
+- [ ] T257 [P] Implement content review checklist for therapeutic content in docs/content-review-checklist.md
+- [ ] T258 [P] Create content approval process for chatbot scripts, journaling prompts, and exercises in docs/content-approval-process.md
+- [ ] T259 [P] Set up content review tracking system (spreadsheet or issue tracker) for mental health professional reviews
 
 ### Documentation
 
@@ -603,7 +614,7 @@ With multiple developers:
 
 ## Task Summary
 
-**Total Tasks**: 254
+**Total Tasks**: 260
 
 **Tasks by Phase**:
 - Phase 1 (Setup): 10 tasks
@@ -612,19 +623,19 @@ With multiple developers:
 - Phase 4 (User Story 2): 30 tasks
 - Phase 5 (User Story 3): 31 tasks
 - Phase 6 (User Story 4): 27 tasks
-- Phase 7 (User Story 5): 31 tasks
+- Phase 7 (User Story 5): 34 tasks (added COPPA compliance tasks)
 - Phase 8 (User Story 6): 19 tasks
-- Phase 9 (Polish): 52 tasks
+- Phase 9 (Polish): 55 tasks (added MFA, content review, COPPA tasks)
 
 **Tasks by User Story**:
 - User Story 1 (P1): 29 tasks
 - User Story 2 (P1): 30 tasks
 - User Story 3 (P2): 31 tasks
 - User Story 4 (P2): 27 tasks
-- User Story 5 (P2): 31 tasks
+- User Story 5 (P2): 34 tasks (includes COPPA compliance tasks)
 - User Story 6 (P3): 19 tasks
 
-**Parallel Opportunities Identified**: 120+ tasks marked [P] can run in parallel
+**Parallel Opportunities Identified**: 125+ tasks marked [P] can run in parallel
 
 **Independent Test Criteria**:
 - **US1**: User can chat with AI coach, receive evidence-based responses, access crisis resources
