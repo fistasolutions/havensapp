@@ -1,0 +1,65 @@
+// Prisma Schema for Havens App MVP
+// PostgreSQL 14+ with pgcrypto extension for encryption
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User Role Enum
+enum UserRole {
+  Individual
+  Provider
+  Partner
+  FamilyFriends
+  Kid
+}
+
+// Provider Verification Status Enum
+enum ProviderVerificationStatus {
+  Pending
+  Verified
+  Rejected
+}
+
+// User Model - Core entity for authentication and user management
+model User {
+  id                        String                    @id @default(uuid()) @db.Uuid
+  email                     String                    @unique @db.VarChar(255)
+  passwordHash              String                    @db.VarChar(255)
+  role                      UserRole                  @default(Individual)
+  firstName                 String?                   @db.VarChar(100)
+  lastName                  String?                   @db.VarChar(100)
+  age                       Int?
+  providerLicenseNumber     String?                   @db.VarChar(100) // Encrypted field
+  providerVerificationStatus ProviderVerificationStatus?
+  parentUserId              String?                   @db.Uuid
+  analyticsConsent          Boolean                   @default(false)
+  dataRetentionPreference   Int                       @default(2555) // 7 years in days
+  createdAt                 DateTime                  @default(now())
+  updatedAt                 DateTime                  @updatedAt
+  deletedAt                 DateTime?
+  lastLoginAt               DateTime?
+
+  // Self-referential relationship for parent-child (Kids mode)
+  parent                    User?                     @relation("ParentChild", fields: [parentUserId], references: [id])
+  children                  User[]                    @relation("ParentChild")
+
+  // Relationships (will be added in later phases)
+  // moodEntries              MoodEntry[]
+  // journalEntries           JournalEntry[]
+  // chatbotConversations     ChatbotConversation[]
+  // exerciseCompletions      ExerciseCompletion[]
+  // userProgress             UserProgress?
+
+  @@index([email])
+  @@index([role])
+  @@index([parentUserId])
+  @@index([deletedAt])
+  @@map("users")
+}
+

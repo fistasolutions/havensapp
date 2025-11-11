@@ -44,45 +44,45 @@
 
 ### Database Setup (Milestone 2 Foundation)
 
-- [ ] T011 Initialize Prisma in api/ directory with npx prisma init
-- [ ] T012 Create Prisma schema file with User model in api/prisma/schema.prisma
-- [ ] T013 Configure PostgreSQL connection and pgcrypto extension in api/prisma/schema.prisma
-- [ ] T014 Create initial database migration in api/prisma/migrations/
-- [ ] T015 Generate Prisma client with npx prisma generate
+- [x] T011 Initialize Prisma in api/ directory with npx prisma init
+- [x] T012 Create Prisma schema file with User model in api/prisma/schema.prisma
+- [x] T013 Configure PostgreSQL connection and pgcrypto extension in api/prisma/schema.prisma
+- [x] T014 Create initial database migration in api/prisma/migrations/
+- [x] T015 Generate Prisma client with npx prisma generate
 
 ### Authentication Framework
 
-- [ ] T016 [P] Create authentication service structure in src/services/auth/
-- [ ] T017 [P] Implement JWT token generation utility in api/src/utils/jwt.ts
-- [ ] T018 [P] Implement password hashing utility with bcrypt in api/src/utils/password.ts
-- [ ] T019 Create authentication middleware in api/src/middleware/auth.ts
-- [ ] T020 Create login endpoint in api/src/routes/auth.ts
-- [ ] T021 Create registration endpoint in api/src/routes/auth.ts
+- [x] T016 [P] Create authentication service structure in src/services/auth/
+- [x] T017 [P] Implement JWT token generation utility in api/src/utils/jwt.ts
+- [x] T018 [P] Implement password hashing utility with bcrypt in api/src/utils/password.ts
+- [x] T019 Create authentication middleware in api/src/middleware/auth.ts
+- [x] T020 Create login endpoint in api/src/routes/auth.ts
+- [x] T021 Create registration endpoint in api/src/routes/auth.ts
 
 ### API Infrastructure
 
-- [ ] T022 Initialize Express server in api/src/server.ts
-- [ ] T023 Configure CORS and security middleware in api/src/server.ts
-- [ ] T024 Set up error handling middleware in api/src/middleware/errorHandler.ts
-- [ ] T025 Create API route structure in api/src/routes/
-- [ ] T026 Configure environment variables in api/.env.example
+- [x] T022 Initialize Express server in api/src/server.ts
+- [x] T023 Configure CORS and security middleware in api/src/server.ts
+- [x] T024 Set up error handling middleware in api/src/middleware/errorHandler.ts
+- [x] T025 Create API route structure in api/src/routes/
+- [x] T026 Configure environment variables in api/.env.example
 
 ### Frontend Infrastructure
 
-- [ ] T027 Create navigation structure: AppNavigator.tsx in src/navigation/
-- [ ] T028 Create TabNavigator component in src/navigation/TabNavigator.tsx
-- [ ] T029 Create StackNavigator component in src/navigation/StackNavigator.tsx
-- [ ] T030 Create API client service in src/services/api/client.ts
-- [ ] T031 Create local storage service in src/services/storage/localStorage.ts
-- [ ] T032 Create offline sync service structure in src/services/storage/sync.ts
+- [x] T027 Create navigation structure: AppNavigator.tsx in src/navigation/
+- [x] T028 Create TabNavigator component in src/navigation/TabNavigator.tsx
+- [x] T029 Create StackNavigator component in src/navigation/StackNavigator.tsx
+- [x] T030 Create API client service in src/services/api/client.ts
+- [x] T031 Create local storage service in src/services/storage/localStorage.ts
+- [x] T032 Create offline sync service structure in src/services/storage/sync.ts
 
 ### Base Components
 
-- [ ] T033 [P] Create Button component in src/components/common/Button.tsx
-- [ ] T034 [P] Create Card component in src/components/common/Card.tsx
-- [ ] T035 [P] Create Input component in src/components/common/Input.tsx
-- [ ] T036 [P] Create LoadingIndicator component in src/components/common/LoadingIndicator.tsx
-- [ ] T037 [P] Create ErrorMessage component in src/components/common/ErrorMessage.tsx
+- [x] T033 [P] Create Button component in src/components/common/Button.tsx
+- [x] T034 [P] Create Card component in src/components/common/Card.tsx
+- [x] T035 [P] Create Input component in src/components/common/Input.tsx
+- [x] T036 [P] Create LoadingIndicator component in src/components/common/LoadingIndicator.tsx
+- [x] T037 [P] Create ErrorMessage component in src/components/common/ErrorMessage.tsx
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
