@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+**/node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Build outputs
+dist/
+build/
+*.min.js
+*.bundle.js
+
+# Coverage
+coverage/
+
+# Generated files
+*.generated.*
+*.d.ts
+
+# React Native
+android/
+ios/
+.expo/
+
+# Config files
+*.config.js
+babel.config.js
+metro.config.js
+
+# Logs
+*.log
+
+# Environment
+.env
+.env.local
+.env.*.local
+
