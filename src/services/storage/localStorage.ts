@@ -104,3 +104,8 @@ export const setMultiple = async <T>(
   }
 };
 
+/**
+ * Clear all local storage (alias for clear)
+ */
+export const clearAll = clear;
+

@@ -14,6 +14,7 @@ import partnerRoutes from './partner';
 import familyRoutes from './family';
 import analyticsRoutes from './analytics';
 import feedbackRoutes from './feedback';
+import userRoutes from './user';
 
 const router = Router();
 
@@ -28,6 +29,7 @@ router.use('/partner', partnerRoutes);
 router.use('/family', familyRoutes);
 router.use('/analytics', analyticsRoutes);
 router.use('/feedback', feedbackRoutes);
+router.use('/user', userRoutes);
 
 export default router;
 

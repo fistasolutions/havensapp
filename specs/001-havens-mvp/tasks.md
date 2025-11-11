@@ -413,33 +413,33 @@
 
 ### Additional Screens & Features
 
-- [ ] T205 [P] Create SettingsScreen component in src/screens/settings/SettingsScreen.tsx
-- [ ] T206 [P] Create ProfileScreen component in src/screens/settings/ProfileScreen.tsx
-- [ ] T207 [P] Create PrivacySettingsScreen component in src/screens/settings/PrivacySettingsScreen.tsx
-- [ ] T208 [P] Create DataExportScreen component in src/screens/settings/DataExportScreen.tsx
-- [ ] T209 [P] Create DataDeletionScreen component in src/screens/settings/DataDeletionScreen.tsx
-- [ ] T210 [P] Create CrisisResourcesScreen component in src/screens/crisis/CrisisResourcesScreen.tsx
-- [ ] T211 [P] Create SafetyPlanningScreen component in src/screens/crisis/SafetyPlanningScreen.tsx
-- [ ] T212 [P] Create OfflineIndicatorScreen component in src/screens/common/OfflineIndicatorScreen.tsx
-- [ ] T213 [P] Create LoadingScreen component in src/screens/common/LoadingScreen.tsx
-- [ ] T214 [P] Create ErrorScreen component in src/screens/common/ErrorScreen.tsx
-- [ ] T215 [P] Create empty state components for all features in src/components/common/EmptyState.tsx
+- [x] T205 [P] Create SettingsScreen component in src/screens/settings/SettingsScreen.tsx
+- [x] T206 [P] Create ProfileScreen component in src/screens/settings/ProfileScreen.tsx
+- [x] T207 [P] Create PrivacySettingsScreen component in src/screens/settings/PrivacySettingsScreen.tsx
+- [x] T208 [P] Create DataExportScreen component in src/screens/settings/DataExportScreen.tsx
+- [x] T209 [P] Create DataDeletionScreen component in src/screens/settings/DataDeletionScreen.tsx
+- [x] T210 [P] Create CrisisResourcesScreen component in src/screens/crisis/CrisisResourcesScreen.tsx
+- [x] T211 [P] Create SafetyPlanningScreen component in src/screens/crisis/SafetyPlanningScreen.tsx
+- [x] T212 [P] Create OfflineIndicatorScreen component in src/screens/common/OfflineIndicatorScreen.tsx
+- [x] T213 [P] Create LoadingScreen component in src/screens/common/LoadingScreen.tsx
+- [x] T214 [P] Create ErrorScreen component in src/screens/common/ErrorScreen.tsx
+- [x] T215 [P] Create empty state components for all features in src/components/common/EmptyState.tsx
 
 ### Home/Dashboard Screen
 
-- [ ] T216 Create HomeScreen component with all widgets in src/screens/home/HomeScreen.tsx
-- [ ] T217 Integrate quick mood check-in widget in src/screens/home/HomeScreen.tsx
-- [ ] T218 Integrate recent chatbot preview in src/screens/home/HomeScreen.tsx
-- [ ] T219 Integrate daily journaling prompt card in src/screens/home/HomeScreen.tsx
-- [ ] T220 Integrate self-help exercise suggestions in src/screens/home/HomeScreen.tsx
-- [ ] T221 Integrate mood trend summary in src/screens/home/HomeScreen.tsx
+- [x] T216 Create HomeScreen component with all widgets in src/screens/home/HomeScreen.tsx
+- [x] T217 Integrate quick mood check-in widget in src/screens/home/HomeScreen.tsx
+- [x] T218 Integrate recent chatbot preview in src/screens/home/HomeScreen.tsx
+- [x] T219 Integrate daily journaling prompt card in src/screens/home/HomeScreen.tsx
+- [x] T220 Integrate self-help exercise suggestions in src/screens/home/HomeScreen.tsx
+- [x] T221 Integrate mood trend summary in src/screens/home/HomeScreen.tsx
 
 ### Data Export & Deletion
 
-- [ ] T222 Implement data export API endpoint in api/src/controllers/dataController.ts
-- [ ] T223 Implement data deletion API endpoint in api/src/controllers/dataController.ts
-- [ ] T224 Create data export service in src/services/data/dataExportService.ts
-- [ ] T225 Create data deletion service in src/services/data/dataDeletionService.ts
+- [x] T222 Implement data export API endpoint in api/src/controllers/dataController.ts
+- [x] T223 Implement data deletion API endpoint in api/src/controllers/dataController.ts
+- [x] T224 Create data export service in src/services/data/dataExportService.ts
+- [x] T225 Create data deletion service in src/services/data/dataDeletionService.ts
 
 ### Performance & Optimization
 

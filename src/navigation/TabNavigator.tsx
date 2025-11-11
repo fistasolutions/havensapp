@@ -17,9 +17,7 @@ import SelfHelpResourcesScreen from '../screens/resources/SelfHelpResourcesScree
 import ProviderDashboard from '../screens/role-specific/ProviderDashboard';
 import PartnerPairingScreen from '../screens/role-specific/PartnerPairingScreen';
 import KidFriendlyHomeScreen from '../screens/role-specific/KidFriendlyHomeScreen';
-
-// Placeholder screens (will be implemented in user story phases)
-const HomeScreen = () => null;
+import HomeScreen from '../screens/home/HomeScreen';
 
 export type TabParamList = {
   Home: undefined;
@@ -42,7 +40,7 @@ const TabNavigator: React.FC = () => {
       case 'Kid':
         return KidFriendlyHomeScreen;
       default:
-        return HomeScreen;
+        return HomeScreen; // Use the new HomeScreen with widgets
     }
   };
 

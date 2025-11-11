@@ -9,17 +9,19 @@ import { Colors } from '../constants';
 
 // Import screens
 import CrisisResourcesScreen from '../screens/crisis/CrisisResourcesScreen';
-
-// Placeholder screens (will be implemented in later phases)
-const SettingsScreen = () => null;
-const ProfileScreen = () => null;
-const DataExportScreen = () => null;
-const DataDeletionScreen = () => null;
+import SettingsScreen from '../screens/settings/SettingsScreen';
+import ProfileScreen from '../screens/settings/ProfileScreen';
+import PrivacySettingsScreen from '../screens/settings/PrivacySettingsScreen';
+import DataExportScreen from '../screens/settings/DataExportScreen';
+import DataDeletionScreen from '../screens/settings/DataDeletionScreen';
+import SafetyPlanningScreen from '../screens/crisis/SafetyPlanningScreen';
 
 export type StackParamList = {
   Settings: undefined;
   Profile: undefined;
+  PrivacySettings: undefined;
   CrisisResources: undefined;
+  SafetyPlanning: undefined;
   DataExport: undefined;
   DataDeletion: undefined;
 };
@@ -50,9 +52,19 @@ const StackNavigator: React.FC = () => {
         options={{ title: 'Profile' }}
       />
       <Stack.Screen
+        name="PrivacySettings"
+        component={PrivacySettingsScreen}
+        options={{ title: 'Privacy Settings' }}
+      />
+      <Stack.Screen
         name="CrisisResources"
         component={CrisisResourcesScreen}
         options={{ title: 'Crisis Resources' }}
+      />
+      <Stack.Screen
+        name="SafetyPlanning"
+        component={SafetyPlanningScreen}
+        options={{ title: 'Safety Planning' }}
       />
       <Stack.Screen
         name="DataExport"
