@@ -7,9 +7,11 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Colors } from '../constants';
 
+// Import screens
+import ChatbotScreen from '../screens/chat/ChatbotScreen';
+
 // Placeholder screens (will be implemented in user story phases)
 const HomeScreen = () => null;
-const ChatScreen = () => null;
 const MoodScreen = () => null;
 const JournalScreen = () => null;
 const ResourcesScreen = () => null;
@@ -47,7 +49,7 @@ const TabNavigator: React.FC = () => {
       />
       <Tab.Screen
         name="Chat"
-        component={ChatScreen}
+        component={ChatbotScreen}
         options={{
           title: 'Chat',
           tabBarLabel: 'Chat',

@@ -7,10 +7,12 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Colors } from '../constants';
 
+// Import screens
+import CrisisResourcesScreen from '../screens/crisis/CrisisResourcesScreen';
+
 // Placeholder screens (will be implemented in later phases)
 const SettingsScreen = () => null;
 const ProfileScreen = () => null;
-const CrisisResourcesScreen = () => null;
 const DataExportScreen = () => null;
 const DataDeletionScreen = () => null;
 

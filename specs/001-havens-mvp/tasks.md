@@ -98,47 +98,47 @@
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T038 [P] [US1] Unit test for chatbot service in __tests__/services/chatbot.test.ts
-- [ ] T039 [P] [US1] Component test for ChatbotScreen in __tests__/screens/chat/ChatbotScreen.test.tsx
-- [ ] T040 [P] [US1] Integration test for chatbot conversation flow in __tests__/e2e/chatbot.test.ts
-- [ ] T041 [P] [US1] Contract test for POST /chatbot/conversations endpoint in api/tests/contract/chatbot.test.ts
+- [x] T038 [P] [US1] Unit test for chatbot service in __tests__/services/chatbot.test.ts
+- [x] T039 [P] [US1] Component test for ChatbotScreen in __tests__/screens/chat/ChatbotScreen.test.tsx
+- [x] T040 [P] [US1] Integration test for chatbot conversation flow in __tests__/e2e/chatbot.test.ts
+- [x] T041 [P] [US1] Contract test for POST /chatbot/conversations endpoint in api/tests/contract/chatbot.test.ts
 
 ### Frontend Implementation (Milestone 1)
 
-- [ ] T042 [P] [US1] Create ChatbotScreen component in src/screens/chat/ChatbotScreen.tsx
-- [ ] T043 [P] [US1] Create ConversationFlowSelectionScreen in src/screens/chat/ConversationFlowSelectionScreen.tsx
-- [ ] T044 [P] [US1] Create ChatMessage component in src/components/chatbot/ChatMessage.tsx
-- [ ] T045 [P] [US1] Create ChatInput component in src/components/chatbot/ChatInput.tsx
-- [ ] T046 [P] [US1] Create TypingIndicator component in src/components/chatbot/TypingIndicator.tsx
-- [ ] T047 [US1] Create chatbot service in src/services/chatbot/chatbotService.ts
-- [ ] T048 [US1] Add chatbot tab to TabNavigator in src/navigation/TabNavigator.tsx
-- [ ] T049 [US1] Implement conversation flow selector UI in src/screens/chat/ConversationFlowSelectionScreen.tsx
-- [ ] T050 [US1] Implement crisis detection UI and resources button in src/components/chatbot/CrisisButton.tsx
-- [ ] T051 [US1] Add chatbot navigation routes in src/navigation/StackNavigator.tsx
+- [x] T042 [P] [US1] Create ChatbotScreen component in src/screens/chat/ChatbotScreen.tsx
+- [x] T043 [P] [US1] Create ConversationFlowSelectionScreen in src/screens/chat/ConversationFlowSelectionScreen.tsx
+- [x] T044 [P] [US1] Create ChatMessage component in src/components/chatbot/ChatMessage.tsx
+- [x] T045 [P] [US1] Create ChatInput component in src/components/chatbot/ChatInput.tsx
+- [x] T046 [P] [US1] Create TypingIndicator component in src/components/chatbot/TypingIndicator.tsx
+- [x] T047 [US1] Create chatbot service in src/services/chatbot/chatbotService.ts
+- [x] T048 [US1] Add chatbot tab to TabNavigator in src/navigation/TabNavigator.tsx
+- [x] T049 [US1] Implement conversation flow selector UI in src/screens/chat/ConversationFlowSelectionScreen.tsx
+- [x] T050 [US1] Implement crisis detection UI and resources button in src/components/chatbot/CrisisButton.tsx
+- [x] T051 [US1] Add chatbot navigation routes in src/navigation/StackNavigator.tsx
 
 ### Database Implementation (Milestone 2)
 
-- [ ] T052 [US1] Add ChatbotConversation model to Prisma schema in api/prisma/schema.prisma
-- [ ] T053 [US1] Create database migration for ChatbotConversation in api/prisma/migrations/
-- [ ] T054 [US1] Update Prisma client after migration
+- [x] T052 [US1] Add ChatbotConversation model to Prisma schema in api/prisma/schema.prisma
+- [x] T053 [US1] Create database migration for ChatbotConversation in api/prisma/migrations/
+- [x] T054 [US1] Update Prisma client after migration
 
 ### API Implementation (Milestone 3)
 
-- [ ] T055 [US1] Create chatbot controller in api/src/controllers/chatbotController.ts
-- [ ] T056 [US1] Create chatbot service in api/src/services/chatbotService.ts
-- [ ] T057 [US1] Create POST /chatbot/conversations endpoint in api/src/routes/chatbot.ts
-- [ ] T058 [US1] Create POST /chatbot/conversations/:id/messages endpoint in api/src/routes/chatbot.ts
-- [ ] T059 [US1] Create GET /chatbot/conversations endpoint in api/src/routes/chatbot.ts
-- [ ] T060 [US1] Integrate OpenAI/Anthropic API for chatbot responses in api/src/services/aiService.ts
-- [ ] T061 [US1] Implement crisis detection logic in api/src/services/crisisDetection.ts
-- [ ] T062 [US1] Implement conversation memory/context management in api/src/services/chatbotService.ts
-- [ ] T063 [US1] Add chatbot routes to Express server in api/src/server.ts
+- [x] T055 [US1] Create chatbot controller in api/src/controllers/chatbotController.ts
+- [x] T056 [US1] Create chatbot service in api/src/services/chatbotService.ts
+- [x] T057 [US1] Create POST /chatbot/conversations endpoint in api/src/routes/chatbot.ts
+- [x] T058 [US1] Create POST /chatbot/conversations/:id/messages endpoint in api/src/routes/chatbot.ts
+- [x] T059 [US1] Create GET /chatbot/conversations endpoint in api/src/routes/chatbot.ts
+- [x] T060 [US1] Integrate OpenAI/Anthropic API for chatbot responses in api/src/services/aiService.ts
+- [x] T061 [US1] Implement crisis detection logic in api/src/services/crisisDetection.ts
+- [x] T062 [US1] Implement conversation memory/context management in api/src/services/chatbotService.ts
+- [x] T063 [US1] Add chatbot routes to Express server in api/src/server.ts
 
 ### Integration (Milestone 3)
 
-- [ ] T064 [US1] Connect frontend chatbot service to API endpoints in src/services/chatbot/chatbotService.ts
-- [ ] T065 [US1] Implement offline message queuing in src/services/storage/sync.ts
-- [ ] T066 [US1] Add error handling and retry logic in src/services/chatbot/chatbotService.ts
+- [x] T064 [US1] Connect frontend chatbot service to API endpoints in src/services/chatbot/chatbotService.ts
+- [x] T065 [US1] Implement offline message queuing in src/services/storage/sync.ts
+- [x] T066 [US1] Add error handling and retry logic in src/services/chatbot/chatbotService.ts
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently. User can chat with AI coach, receive evidence-based responses, and access crisis resources.
 

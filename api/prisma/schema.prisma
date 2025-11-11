@@ -26,6 +26,15 @@ enum ProviderVerificationStatus {
   Rejected
 }
 
+// Conversation Flow Enum
+enum ConversationFlow {
+  AnxietyRelief
+  StressManagement
+  DepressionSupport
+  General
+  Custom
+}
+
 // User Model - Core entity for authentication and user management
 model User {
   id                        String                    @id @default(uuid()) @db.Uuid
@@ -49,10 +58,10 @@ model User {
   parent                    User?                     @relation("ParentChild", fields: [parentUserId], references: [id])
   children                  User[]                    @relation("ParentChild")
 
-  // Relationships (will be added in later phases)
+  // Relationships
+  chatbotConversations ChatbotConversation[]
   // moodEntries              MoodEntry[]
   // journalEntries           JournalEntry[]
-  // chatbotConversations     ChatbotConversation[]
   // exerciseCompletions      ExerciseCompletion[]
   // userProgress             UserProgress?
 
@@ -61,5 +70,29 @@ model User {
   @@index([parentUserId])
   @@index([deletedAt])
   @@map("users")
+}
+
+// ChatbotConversation Model
+model ChatbotConversation {
+  id                        String            @id @default(uuid()) @db.Uuid
+  userId                    String            @db.Uuid
+  conversationFlow           ConversationFlow  @default(General)
+  messages                  Json              // Array of message objects (encrypted)
+  personalizationContext    Json?             // User context for personalization
+  crisisDetected            Boolean           @default(false)
+  crisisResourcesProvided   Boolean           @default(false)
+  isActive                  Boolean           @default(true)
+  syncedAt                  DateTime?
+  createdAt                 DateTime          @default(now())
+  updatedAt                 DateTime          @updatedAt
+
+  // Relationships
+  user                      User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([createdAt])
+  @@index([crisisDetected])
+  @@index([userId, isActive])
+  @@map("chatbot_conversations")
 }
 

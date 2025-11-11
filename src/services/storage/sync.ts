@@ -97,7 +97,12 @@ export const syncOfflineActions = async (): Promise<{
         let response;
         switch (action.action) {
           case 'create':
-            response = await apiClient.post(action.endpoint, action.data);
+            // Handle chatbot messages specially
+            if (action.type === 'chatbot' && action.endpoint.includes('/messages')) {
+              response = await apiClient.post(action.endpoint, action.data);
+            } else {
+              response = await apiClient.post(action.endpoint, action.data);
+            }
             break;
           case 'update':
             response = await apiClient.put(`${action.endpoint}/${action.id}`, action.data);
@@ -142,9 +147,12 @@ export const syncOfflineActions = async (): Promise<{
 export const isOnline = async (): Promise<boolean> => {
   try {
     // Simple connectivity check - ping health endpoint
+    // Note: This uses the API client which may fail if not authenticated
+    // For a more robust check, use NetInfo or a simple fetch
     const response = await apiClient.get('/health', { timeout: 5000 });
     return response.status === 200;
   } catch (error) {
+    // If health check fails, assume offline
     return false;
   }
 };
