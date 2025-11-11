@@ -161,6 +161,39 @@ class ChatbotService {
       throw error;
     }
   }
+
+  /**
+   * Get suggested exercises based on mood or conversation context
+   * This can be called from the chatbot to suggest exercises
+   */
+  async getSuggestedExercises(moodContext?: string): Promise<any[]> {
+    try {
+      const { exerciseService } = await import('../exercises/exerciseService');
+      const exercises = await exerciseService.getExercises(
+        moodContext ? { type: this.mapMoodToExerciseType(moodContext) } : undefined,
+      );
+      return exercises.slice(0, 3); // Return top 3 suggestions
+    } catch (error) {
+      console.error('Error fetching suggested exercises:', error);
+      return [];
+    }
+  }
+
+  /**
+   * Map mood context to exercise type
+   */
+  private mapMoodToExerciseType(moodContext: string): string {
+    const moodToExercise: Record<string, string> = {
+      anxious: 'Breathing',
+      stressed: 'Breathing',
+      overwhelmed: 'Breathing',
+      sad: 'Mindfulness',
+      angry: 'DistressTolerance',
+      worried: 'Breathing',
+      frustrated: 'DistressTolerance',
+    };
+    return moodToExercise[moodContext.toLowerCase()] || 'Breathing';
+  }
 }
 
 export const chatbotService = new ChatbotService();

@@ -19,10 +19,12 @@ import TypingIndicator from '../../components/chatbot/TypingIndicator';
 import CrisisButton from '../../components/chatbot/CrisisButton';
 import LoadingIndicator from '../../components/common/LoadingIndicator';
 import ErrorMessage from '../../components/common/ErrorMessage';
+import FeedbackForm from '../../components/common/FeedbackForm';
 import ConversationFlowSelectionScreen, {
   ConversationFlow,
 } from './ConversationFlowSelectionScreen';
 import { chatbotService, ChatbotMessage } from '../../services/chatbot/chatbotService';
+import { analyticsService } from '../../services/analytics/analyticsService';
 
 const ChatbotScreen: React.FC = () => {
   const [conversationId, setConversationId] = useState<string | null>(null);
@@ -32,6 +34,8 @@ const ChatbotScreen: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [showCrisisResources, setShowCrisisResources] = useState(false);
   const [showFlowSelection, setShowFlowSelection] = useState(true);
+  const [showFeedbackForm, setShowFeedbackForm] = useState(false);
+  const [isSubmittingFeedback, setIsSubmittingFeedback] = useState(false);
   const flatListRef = useRef<FlatList>(null);
 
   useEffect(() => {
@@ -92,11 +96,36 @@ const ChatbotScreen: React.FC = () => {
       if (response.crisisDetected) {
         setShowCrisisResources(true);
       }
+
+      // Show feedback form after a certain number of messages (e.g., 5+)
+      if (messages.length >= 4 && !showFeedbackForm) {
+        setShowFeedbackForm(true);
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to send message');
     } finally {
       setIsTyping(false);
     }
+  };
+
+  const handleFeedbackSubmit = async (rating: number, feedbackText?: string) => {
+    setIsSubmittingFeedback(true);
+    try {
+      await analyticsService.submitFeedback({
+        sessionType: 'Chatbot',
+        rating,
+        feedbackText,
+      });
+      setShowFeedbackForm(false);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to submit feedback');
+    } finally {
+      setIsSubmittingFeedback(false);
+    }
+  };
+
+  const handleFeedbackSkip = () => {
+    setShowFeedbackForm(false);
   };
 
   if (showFlowSelection) {
@@ -139,7 +168,20 @@ const ChatbotScreen: React.FC = () => {
 
       {isTyping && <TypingIndicator />}
 
-      <ChatInput onSend={handleSendMessage} disabled={isLoading || isTyping} />
+      {showFeedbackForm && (
+        <View style={styles.feedbackContainer}>
+          <FeedbackForm
+            sessionType="Chatbot"
+            onSubmit={handleFeedbackSubmit}
+            onSkip={handleFeedbackSkip}
+            isSubmitting={isSubmittingFeedback}
+          />
+        </View>
+      )}
+
+      {!showFeedbackForm && (
+        <ChatInput onSend={handleSendMessage} disabled={isLoading || isTyping} />
+      )}
     </KeyboardAvoidingView>
   );
 };
@@ -176,6 +218,12 @@ const styles = StyleSheet.create({
   emptyText: {
     ...Typography.body,
     color: Colors.grayMedium,
+  },
+  feedbackContainer: {
+    padding: Spacing.md,
+    borderTopWidth: 1,
+    borderTopColor: Colors.grayLight,
+    backgroundColor: Colors.white,
   },
 });
 

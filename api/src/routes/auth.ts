@@ -63,6 +63,9 @@ router.post(
     // Hash password
     const passwordHash = await hashPassword(password);
 
+    // Get analytics consent from request (optional, defaults to false)
+    const analyticsConsent = req.body.analyticsConsent === true;
+
     // Create user
     const user = await prisma.user.create({
       data: {
@@ -72,7 +75,7 @@ router.post(
         firstName: firstName || null,
         lastName: lastName || null,
         age: age || null,
-        analyticsConsent: false,
+        analyticsConsent,
         dataRetentionPreference: 2555, // 7 years default
       },
       select: {

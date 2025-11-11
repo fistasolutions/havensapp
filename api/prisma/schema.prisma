@@ -35,6 +35,76 @@ enum ConversationFlow {
   Custom
 }
 
+// Mood Trend Period Enum
+enum MoodTrendPeriod {
+  Daily
+  Weekly
+  Monthly
+}
+
+// Mood Trend Direction Enum
+enum MoodTrendDirection {
+  Improving
+  Stable
+  Declining
+}
+
+// Journal Prompt Theme Enum
+enum JournalPromptTheme {
+  Gratitude
+  Goals
+  Stress
+  Relationships
+  Reflection
+  General
+}
+
+// Sentiment Label Enum
+enum SentimentLabel {
+  Positive
+  Neutral
+  Negative
+}
+
+// Exercise Type Enum
+enum ExerciseType {
+  Breathing
+  Mindfulness
+  Affirmation
+  DistressTolerance
+  ProgressiveRelaxation
+}
+
+// Consent Status Enum
+enum ConsentStatus {
+  Pending
+  Granted
+  Revoked
+}
+
+// Partner Pairing Status Enum
+enum PairingStatus {
+  Pending
+  Active
+  Paused
+  Ended
+}
+
+// Family Group Member Role Enum
+enum FamilyGroupMemberRole {
+  Admin
+  Member
+}
+
+// Feedback Session Type Enum
+enum FeedbackSessionType {
+  Chatbot
+  MoodLogging
+  Journaling
+  Exercise
+  General
+}
+
 // User Model - Core entity for authentication and user management
 model User {
   id                        String                    @id @default(uuid()) @db.Uuid
@@ -60,9 +130,17 @@ model User {
 
   // Relationships
   chatbotConversations ChatbotConversation[]
-  // moodEntries              MoodEntry[]
-  // journalEntries           JournalEntry[]
-  // exerciseCompletions      ExerciseCompletion[]
+  moodEntries              MoodEntry[]
+  moodTrends              MoodTrend[]
+  journalEntries           JournalEntry[]
+  exerciseCompletions      ExerciseCompletion[]
+  providerClientRelationshipsAsProvider ProviderClientRelationship[] @relation("Provider")
+  providerClientRelationshipsAsClient ProviderClientRelationship[] @relation("Client")
+  partnerPairingsAsUser1 PartnerPairing[] @relation("User1")
+  partnerPairingsAsUser2 PartnerPairing[] @relation("User2")
+  familyGroupsCreated FamilyGroup[] @relation("FamilyGroupCreator")
+  familyGroupMemberships FamilyGroupMember[]
+  feedbackEntries UserFeedback[]
   // userProgress             UserProgress?
 
   @@index([email])
@@ -94,5 +172,256 @@ model ChatbotConversation {
   @@index([crisisDetected])
   @@index([userId, isActive])
   @@map("chatbot_conversations")
+}
+
+// MoodEntry Model - Represents a single mood log entry
+model MoodEntry {
+  id            String    @id @default(uuid()) @db.Uuid
+  userId        String    @db.Uuid
+  emotionLabels String[]  // Array of emotion labels (e.g., ["happy", "grateful"])
+  intensity     Int?      // Mood intensity rating (1-10)
+  notes         String?   @db.Text // Optional notes about the mood (encrypted)
+  moodColor     String?   @db.VarChar(7) // Associated mood color for visualization
+  timestamp     DateTime  @default(now())
+  syncedAt      DateTime?
+  isOffline     Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Relationships
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  relatedJournalEntries JournalEntry[]
+
+  @@index([userId])
+  @@index([timestamp])
+  @@index([userId, timestamp])
+  @@map("mood_entries")
+}
+
+// MoodTrend Model - Aggregated mood data for trend visualization
+model MoodTrend {
+  id                String              @id @default(uuid()) @db.Uuid
+  userId            String              @db.Uuid
+  period            MoodTrendPeriod     @default(Weekly)
+  periodStart       DateTime            @db.Date
+  periodEnd         DateTime            @db.Date
+  averageMood       Float               // Average mood intensity for period
+  dominantEmotions  String[]            // Most common emotions in period
+  trendDirection    MoodTrendDirection  @default(Stable)
+  entryCount        Int                 @default(0) // Number of mood entries in period
+  createdAt         DateTime            @default(now())
+
+  // Relationships
+  user              User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, period, periodStart])
+  @@map("mood_trends")
+}
+
+// JournalPrompt Model - Represents a journaling prompt template
+model JournalPrompt {
+  id                      String              @id @default(uuid()) @db.Uuid
+  theme                   JournalPromptTheme   @default(General)
+  promptText              String              @db.Text
+  evidenceBasedTechnique  String              @db.VarChar(50) // CBT, ACT, DBT, Mindfulness, PositivePsychology, SEL
+  targetMoodContext       String[]            // Mood contexts this prompt is suitable for
+  isActive                Boolean             @default(true)
+  createdAt               DateTime            @default(now())
+  updatedAt               DateTime            @updatedAt
+
+  // Relationships
+  journalEntries          JournalEntry[]
+
+  @@index([theme])
+  @@index([evidenceBasedTechnique])
+  @@index([isActive])
+  @@map("journal_prompts")
+}
+
+// JournalEntry Model - Represents a journal entry with prompt, content, and sentiment analysis
+model JournalEntry {
+  id                  String          @id @default(uuid()) @db.Uuid
+  userId              String          @db.Uuid
+  promptId            String?         @db.Uuid
+  promptText          String?         @db.Text // Denormalized for offline access
+  content             String          @db.Text // Encrypted field
+  sentimentScore      Float?          // Sentiment analysis score (-1 to 1)
+  sentimentLabel      SentimentLabel? // Positive | Neutral | Negative
+  insights            String[]        // AI-generated insights/reframing suggestions
+  relatedMoodEntryId  String?         @db.Uuid
+  isDraft             Boolean         @default(false)
+  syncedAt            DateTime?
+  isOffline            Boolean         @default(false)
+  createdAt           DateTime        @default(now())
+  updatedAt           DateTime        @updatedAt
+
+  // Relationships
+  user                User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  prompt              JournalPrompt?  @relation(fields: [promptId], references: [id], onDelete: SetNull)
+  relatedMoodEntry    MoodEntry?      @relation(fields: [relatedMoodEntryId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([createdAt])
+  @@index([sentimentLabel])
+  @@index([userId, isDraft])
+  @@map("journal_entries")
+}
+
+// SelfHelpExercise Model - Represents a self-help exercise resource
+model SelfHelpExercise {
+  id                      String          @id @default(uuid()) @db.Uuid
+  type                    ExerciseType    @default(Breathing)
+  title                   String          @db.VarChar(200)
+  description             String          @db.Text
+  instructions            String[]        // Step-by-step instructions
+  duration                Int?            // Exercise duration in minutes
+  evidenceBasedTechnique  String          @db.VarChar(50) // CBT, ACT, DBT, Mindfulness, PositivePsychology
+  isActive                Boolean         @default(true)
+  createdAt               DateTime        @default(now())
+  updatedAt               DateTime        @updatedAt
+
+  // Relationships
+  completions             ExerciseCompletion[]
+
+  @@index([type])
+  @@index([isActive])
+  @@map("self_help_exercises")
+}
+
+// ExerciseCompletion Model - Tracks user completion of self-help exercises
+model ExerciseCompletion {
+  id          String            @id @default(uuid()) @db.Uuid
+  userId      String            @db.Uuid
+  exerciseId  String            @db.Uuid
+  completedAt DateTime          @default(now())
+  duration    Int?              // Actual duration in seconds
+  rating      Int?              // User rating (1-5)
+
+  // Relationships
+  user        User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  exercise    SelfHelpExercise  @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([exerciseId])
+  @@index([userId, completedAt])
+  @@map("exercise_completions")
+}
+
+// ProviderClientRelationship Model - HIPAA-compliant provider access to client data
+model ProviderClientRelationship {
+  id                  String          @id @default(uuid()) @db.Uuid
+  providerId          String          @db.Uuid
+  clientId            String          @db.Uuid
+  consentStatus       ConsentStatus   @default(Pending)
+  accessLevel         String          @default("ReadOnly") // Enforced read-only
+  consentGrantedAt    DateTime?
+  consentRevokedAt    DateTime?
+  hipaaAuditLog       Json?           // Encrypted audit log
+  createdAt           DateTime        @default(now())
+  updatedAt           DateTime        @updatedAt
+
+  // Relationships
+  provider            User            @relation("Provider", fields: [providerId], references: [id], onDelete: Cascade)
+  client              User            @relation("Client", fields: [clientId], references: [id], onDelete: Cascade)
+
+  @@index([providerId])
+  @@index([clientId])
+  @@index([consentStatus])
+  @@map("provider_client_relationships")
+}
+
+// PartnerPairing Model - Shared access between romantic partners
+model PartnerPairing {
+  id                      String          @id @default(uuid()) @db.Uuid
+  user1Id                 String          @db.Uuid
+  user2Id                 String          @db.Uuid
+  pairingStatus           PairingStatus   @default(Pending)
+  sharedJournalEnabled    Boolean         @default(false)
+  jointMoodTrackingEnabled Boolean        @default(false)
+  pairingCode             String          @unique @db.VarChar(20)
+  pairedAt                DateTime?
+  createdAt               DateTime        @default(now())
+  updatedAt               DateTime        @updatedAt
+
+  // Relationships
+  user1                   User            @relation("User1", fields: [user1Id], references: [id], onDelete: Cascade)
+  user2                   User            @relation("User2", fields: [user2Id], references: [id], onDelete: Cascade)
+
+  @@index([user1Id])
+  @@index([user2Id])
+  @@index([pairingCode])
+  @@index([pairingStatus])
+  @@map("partner_pairings")
+}
+
+// FamilyGroup Model - Family or friend group for collective wellness
+model FamilyGroup {
+  id          String                  @id @default(uuid()) @db.Uuid
+  name        String                  @db.VarChar(200)
+  createdBy   String                  @db.Uuid
+  isActive    Boolean                 @default(true)
+  createdAt   DateTime                @default(now())
+  updatedAt   DateTime                @updatedAt
+
+  // Relationships
+  creator     User                    @relation("FamilyGroupCreator", fields: [createdBy], references: [id], onDelete: Cascade)
+  members     FamilyGroupMember[]
+
+  @@index([createdBy])
+  @@index([isActive])
+  @@map("family_groups")
+}
+
+// FamilyGroupMember Model - Membership in a family/friend group
+model FamilyGroupMember {
+  id        String                  @id @default(uuid()) @db.Uuid
+  groupId   String                  @db.Uuid
+  userId    String                  @db.Uuid
+  role      FamilyGroupMemberRole   @default(Member)
+  joinedAt  DateTime                @default(now())
+  leftAt    DateTime?
+
+  // Relationships
+  group     FamilyGroup             @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  user      User                    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([groupId])
+  @@index([userId])
+  @@map("family_group_members")
+}
+
+// AnalyticsEvent Model - Privacy-compliant analytics events (anonymized, aggregated)
+model AnalyticsEvent {
+  id                String          @id @default(uuid()) @db.Uuid
+  eventType         String          @db.VarChar(100)
+  anonymizedUserId  String          @db.VarChar(255) // Hashed/anonymized user ID
+  featureUsed       String?         @db.VarChar(100)
+  sessionDuration   Int?            // Session duration in seconds
+  timestamp         DateTime        @default(now())
+  metadata          Json?           // Additional anonymized metadata
+
+  @@index([eventType])
+  @@index([timestamp])
+  @@index([featureUsed])
+  @@map("analytics_events")
+}
+
+// UserFeedback Model - User feedback forms after sessions
+model UserFeedback {
+  id            String              @id @default(uuid()) @db.Uuid
+  userId        String?             @db.Uuid
+  sessionType   FeedbackSessionType
+  rating        Int                 // User rating (1-5)
+  feedbackText  String?             @db.Text
+  isAnonymous   Boolean             @default(false)
+  submittedAt   DateTime            @default(now())
+
+  // Relationships
+  user          User?               @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([sessionType])
+  @@index([submittedAt])
+  @@index([rating])
+  @@map("user_feedback")
 }
 

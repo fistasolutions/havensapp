@@ -152,48 +152,48 @@
 
 ### Tests for User Story 2
 
-- [ ] T067 [P] [US2] Unit test for mood service in __tests__/services/mood.test.ts
-- [ ] T068 [P] [US2] Component test for MoodLoggingScreen in __tests__/screens/mood/MoodLoggingScreen.test.tsx
-- [ ] T069 [P] [US2] Component test for MoodTrendsScreen in __tests__/screens/mood/MoodTrendsScreen.test.tsx
-- [ ] T070 [P] [US2] Integration test for mood logging flow in __tests__/e2e/mood.test.ts
-- [ ] T071 [P] [US2] Contract test for POST /mood/entries endpoint in api/tests/contract/mood.test.ts
+- [x] T067 [P] [US2] Unit test for mood service in __tests__/services/mood.test.ts
+- [x] T068 [P] [US2] Component test for MoodLoggingScreen in __tests__/screens/mood/MoodLoggingScreen.test.tsx
+- [x] T069 [P] [US2] Component test for MoodTrendsScreen in __tests__/screens/mood/MoodTrendsScreen.test.tsx
+- [x] T070 [P] [US2] Integration test for mood logging flow in __tests__/e2e/mood.test.ts
+- [x] T071 [P] [US2] Contract test for POST /mood/entries endpoint in api/tests/contract/mood.test.ts
 
 ### Frontend Implementation (Milestone 1)
 
-- [ ] T072 [P] [US2] Create MoodLoggingScreen component in src/screens/mood/MoodLoggingScreen.tsx
-- [ ] T073 [P] [US2] Create MoodTrendsScreen component in src/screens/mood/MoodTrendsScreen.tsx
-- [ ] T074 [P] [US2] Create MoodDetailScreen component in src/screens/mood/MoodDetailScreen.tsx
-- [ ] T075 [P] [US2] Create MoodWheel component in src/components/mood/MoodWheel.tsx
-- [ ] T076 [P] [US2] Create EmotionSelector component in src/components/mood/EmotionSelector.tsx
-- [ ] T077 [P] [US2] Create MoodTrendChart component in src/components/mood/MoodTrendChart.tsx
-- [ ] T078 [US2] Create mood service in src/services/mood/moodService.ts
-- [ ] T079 [US2] Add mood tab to TabNavigator in src/navigation/TabNavigator.tsx
-- [ ] T080 [US2] Implement offline mood logging in src/services/storage/sync.ts
-- [ ] T081 [US2] Create data export UI component in src/components/common/DataExportButton.tsx
+- [x] T072 [P] [US2] Create MoodLoggingScreen component in src/screens/mood/MoodLoggingScreen.tsx
+- [x] T073 [P] [US2] Create MoodTrendsScreen component in src/screens/mood/MoodTrendsScreen.tsx
+- [x] T074 [P] [US2] Create MoodDetailScreen component in src/screens/mood/MoodDetailScreen.tsx
+- [x] T075 [P] [US2] Create MoodWheel component in src/components/mood/MoodWheel.tsx
+- [x] T076 [P] [US2] Create EmotionSelector component in src/components/mood/EmotionSelector.tsx
+- [x] T077 [P] [US2] Create MoodTrendChart component in src/components/mood/MoodTrendChart.tsx
+- [x] T078 [US2] Create mood service in src/services/mood/moodService.ts
+- [x] T079 [US2] Add mood tab to TabNavigator in src/navigation/TabNavigator.tsx
+- [x] T080 [US2] Implement offline mood logging in src/services/storage/sync.ts
+- [x] T081 [US2] Create data export UI component in src/components/common/DataExportButton.tsx
 
 ### Database Implementation (Milestone 2)
 
-- [ ] T082 [US2] Add MoodEntry model to Prisma schema in api/prisma/schema.prisma
-- [ ] T083 [US2] Add MoodTrend model to Prisma schema in api/prisma/schema.prisma
-- [ ] T084 [US2] Create database migration for MoodEntry and MoodTrend in api/prisma/migrations/
-- [ ] T085 [US2] Update Prisma client after migration
+- [x] T082 [US2] Add MoodEntry model to Prisma schema in api/prisma/schema.prisma
+- [x] T083 [US2] Add MoodTrend model to Prisma schema in api/prisma/schema.prisma
+- [x] T084 [US2] Create database migration for MoodEntry and MoodTrend in api/prisma/migrations/
+- [x] T085 [US2] Update Prisma client after migration
 
 ### API Implementation (Milestone 3)
 
-- [ ] T086 [US2] Create mood controller in api/src/controllers/moodController.ts
-- [ ] T087 [US2] Create mood service in api/src/services/moodService.ts
-- [ ] T088 [US2] Create POST /mood/entries endpoint in api/src/routes/mood.ts
-- [ ] T089 [US2] Create GET /mood/entries endpoint in api/src/routes/mood.ts
-- [ ] T090 [US2] Create GET /mood/trends endpoint in api/src/routes/mood.ts
-- [ ] T091 [US2] Implement mood trend calculation logic in api/src/services/moodService.ts
-- [ ] T092 [US2] Add mood routes to Express server in api/src/server.ts
+- [x] T086 [US2] Create mood controller in api/src/controllers/moodController.ts
+- [x] T087 [US2] Create mood service in api/src/services/moodService.ts
+- [x] T088 [US2] Create POST /mood/entries endpoint in api/src/routes/mood.ts
+- [x] T089 [US2] Create GET /mood/entries endpoint in api/src/routes/mood.ts
+- [x] T090 [US2] Create GET /mood/trends endpoint in api/src/routes/mood.ts
+- [x] T091 [US2] Implement mood trend calculation logic in api/src/services/moodService.ts
+- [x] T092 [US2] Add mood routes to Express server in api/src/server.ts
 
 ### Integration (Milestone 3)
 
-- [ ] T093 [US2] Connect frontend mood service to API endpoints in src/services/mood/moodService.ts
-- [ ] T094 [US2] Implement mood data export functionality in api/src/controllers/moodController.ts
-- [ ] T095 [US2] Add mood sync to offline sync service in src/services/storage/sync.ts
-- [ ] T096 [US2] Integrate mood data with chatbot for contextual prompts in api/src/services/chatbotService.ts
+- [x] T093 [US2] Connect frontend mood service to API endpoints in src/services/mood/moodService.ts
+- [x] T094 [US2] Implement mood data export functionality in api/src/controllers/moodController.ts
+- [x] T095 [US2] Add mood sync to offline sync service in src/services/storage/sync.ts
+- [x] T096 [US2] Integrate mood data with chatbot for contextual prompts in api/src/services/chatbotService.ts
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently. User can track moods, view trends, and chatbot can use mood data for context.
 
@@ -207,49 +207,49 @@
 
 ### Tests for User Story 3
 
-- [ ] T097 [P] [US3] Unit test for journal service in __tests__/services/journal.test.ts
-- [ ] T098 [P] [US3] Component test for JournalingHomeScreen in __tests__/screens/journal/JournalingHomeScreen.test.tsx
-- [ ] T099 [P] [US3] Component test for JournalEntryScreen in __tests__/screens/journal/JournalEntryScreen.test.tsx
-- [ ] T100 [P] [US3] Integration test for journaling flow in __tests__/e2e/journal.test.ts
-- [ ] T101 [P] [US3] Contract test for POST /journal/entries endpoint in api/tests/contract/journal.test.ts
+- [x] T097 [P] [US3] Unit test for journal service in __tests__/services/journal.test.ts
+- [x] T098 [P] [US3] Component test for JournalingHomeScreen in __tests__/screens/journal/JournalingHomeScreen.test.tsx
+- [x] T099 [P] [US3] Component test for JournalEntryScreen in __tests__/screens/journal/JournalEntryScreen.test.tsx
+- [x] T100 [P] [US3] Integration test for journaling flow in __tests__/e2e/journal.test.ts
+- [x] T101 [P] [US3] Contract test for POST /journal/entries endpoint in api/tests/contract/journal.test.ts
 
 ### Frontend Implementation (Milestone 1)
 
-- [ ] T102 [P] [US3] Create JournalingHomeScreen component in src/screens/journal/JournalingHomeScreen.tsx
-- [ ] T103 [P] [US3] Create JournalPromptScreen component in src/screens/journal/JournalPromptScreen.tsx
-- [ ] T104 [P] [US3] Create JournalEntryScreen component in src/screens/journal/JournalEntryScreen.tsx
-- [ ] T105 [P] [US3] Create JournalEntryDetailScreen component in src/screens/journal/JournalEntryDetailScreen.tsx
-- [ ] T106 [P] [US3] Create JournalEditor component in src/components/journal/JournalEditor.tsx
-- [ ] T107 [P] [US3] Create PromptCard component in src/components/journal/PromptCard.tsx
-- [ ] T108 [US3] Create journal service in src/services/journal/journalService.ts
-- [ ] T109 [US3] Add journal tab to TabNavigator in src/navigation/TabNavigator.tsx
-- [ ] T110 [US3] Implement offline journal entry storage in src/services/storage/sync.ts
+- [x] T102 [P] [US3] Create JournalingHomeScreen component in src/screens/journal/JournalingHomeScreen.tsx
+- [x] T103 [P] [US3] Create JournalPromptScreen component in src/screens/journal/JournalPromptScreen.tsx
+- [x] T104 [P] [US3] Create JournalEntryScreen component in src/screens/journal/JournalEntryScreen.tsx
+- [x] T105 [P] [US3] Create JournalEntryDetailScreen component in src/screens/journal/JournalEntryDetailScreen.tsx
+- [x] T106 [P] [US3] Create JournalEditor component in src/components/journal/JournalEditor.tsx
+- [x] T107 [P] [US3] Create PromptCard component in src/components/journal/PromptCard.tsx
+- [x] T108 [US3] Create journal service in src/services/journal/journalService.ts
+- [x] T109 [US3] Add journal tab to TabNavigator in src/navigation/TabNavigator.tsx
+- [x] T110 [US3] Implement offline journal entry storage in src/services/storage/sync.ts
 
 ### Database Implementation (Milestone 2)
 
-- [ ] T111 [US3] Add JournalEntry model to Prisma schema in api/prisma/schema.prisma
-- [ ] T112 [US3] Add JournalPrompt model to Prisma schema in api/prisma/schema.prisma
-- [ ] T113 [US3] Create database migration for JournalEntry and JournalPrompt in api/prisma/migrations/
-- [ ] T114 [US3] Seed initial journal prompts in api/prisma/seed.ts
-- [ ] T115 [US3] Update Prisma client after migration
+- [x] T111 [US3] Add JournalEntry model to Prisma schema in api/prisma/schema.prisma
+- [x] T112 [US3] Add JournalPrompt model to Prisma schema in api/prisma/schema.prisma
+- [x] T113 [US3] Create database migration for JournalEntry and JournalPrompt in api/prisma/migrations/
+- [x] T114 [US3] Seed initial journal prompts in api/prisma/seed.ts
+- [x] T115 [US3] Update Prisma client after migration
 
 ### API Implementation (Milestone 3)
 
-- [ ] T116 [US3] Create journal controller in api/src/controllers/journalController.ts
-- [ ] T117 [US3] Create journal service in api/src/services/journalService.ts
-- [ ] T118 [US3] Create POST /journal/entries endpoint in api/src/routes/journal.ts
-- [ ] T119 [US3] Create GET /journal/entries endpoint in api/src/routes/journal.ts
-- [ ] T120 [US3] Create GET /journal/prompts endpoint in api/src/routes/journal.ts
-- [ ] T121 [US3] Implement prompt personalization logic based on mood data in api/src/services/journalService.ts
-- [ ] T122 [US3] Integrate sentiment analysis service in api/src/services/sentimentAnalysis.ts
-- [ ] T123 [US3] Implement insights/reframing generation in api/src/services/journalService.ts
-- [ ] T124 [US3] Add journal routes to Express server in api/src/server.ts
+- [x] T116 [US3] Create journal controller in api/src/controllers/journalController.ts
+- [x] T117 [US3] Create journal service in api/src/services/journalService.ts
+- [x] T118 [US3] Create POST /journal/entries endpoint in api/src/routes/journal.ts
+- [x] T119 [US3] Create GET /journal/entries endpoint in api/src/routes/journal.ts
+- [x] T120 [US3] Create GET /journal/prompts endpoint in api/src/routes/journal.ts
+- [x] T121 [US3] Implement prompt personalization logic based on mood data in api/src/services/journalService.ts
+- [x] T122 [US3] Integrate sentiment analysis service in api/src/services/sentimentAnalysis.ts
+- [x] T123 [US3] Implement insights/reframing generation in api/src/services/journalService.ts
+- [x] T124 [US3] Add journal routes to Express server in api/src/server.ts
 
 ### Integration (Milestone 3)
 
-- [ ] T125 [US3] Connect frontend journal service to API endpoints in src/services/journal/journalService.ts
-- [ ] T126 [US3] Add journal sync to offline sync service in src/services/storage/sync.ts
-- [ ] T127 [US3] Integrate journal prompts with mood data in api/src/services/journalService.ts
+- [x] T125 [US3] Connect frontend journal service to API endpoints in src/services/journal/journalService.ts
+- [x] T126 [US3] Add journal sync to offline sync service in src/services/storage/sync.ts
+- [x] T127 [US3] Integrate journal prompts with mood data in api/src/services/journalService.ts
 
 **Checkpoint**: At this point, User Stories 1, 2, AND 3 should all work independently. User can journal with personalized prompts and receive sentiment-based insights.
 
@@ -263,45 +263,45 @@
 
 ### Tests for User Story 4
 
-- [ ] T128 [P] [US4] Unit test for exercise service in __tests__/services/exercises.test.ts
-- [ ] T129 [P] [US4] Component test for SelfHelpResourcesScreen in __tests__/screens/resources/SelfHelpResourcesScreen.test.tsx
-- [ ] T130 [P] [US4] Component test for ExerciseDetailScreen in __tests__/screens/resources/ExerciseDetailScreen.test.tsx
-- [ ] T131 [P] [US4] Integration test for exercise completion flow in __tests__/e2e/exercises.test.ts
-- [ ] T132 [P] [US4] Contract test for POST /exercises/:id/complete endpoint in api/tests/contract/exercises.test.ts
+- [x] T128 [P] [US4] Unit test for exercise service in __tests__/services/exercises.test.ts
+- [x] T129 [P] [US4] Component test for SelfHelpResourcesScreen in __tests__/screens/resources/SelfHelpResourcesScreen.test.tsx
+- [x] T130 [P] [US4] Component test for ExerciseDetailScreen in __tests__/screens/resources/ExerciseDetailScreen.test.tsx
+- [x] T131 [P] [US4] Integration test for exercise completion flow in __tests__/e2e/exercises.test.ts
+- [x] T132 [P] [US4] Contract test for POST /exercises/:id/complete endpoint in api/tests/contract/exercises.test.ts
 
 ### Frontend Implementation (Milestone 1)
 
-- [ ] T133 [P] [US4] Create SelfHelpResourcesScreen component in src/screens/resources/SelfHelpResourcesScreen.tsx
-- [ ] T134 [P] [US4] Create ExerciseDetailScreen component in src/screens/resources/ExerciseDetailScreen.tsx
-- [ ] T135 [P] [US4] Create ExerciseExecutionScreen component in src/screens/resources/ExerciseExecutionScreen.tsx
-- [ ] T136 [P] [US4] Create ExerciseCard component in src/components/exercises/ExerciseCard.tsx
-- [ ] T137 [P] [US4] Create BreathingExercise component in src/components/exercises/BreathingExercise.tsx
-- [ ] T138 [P] [US4] Create ProgressTracker component in src/components/exercises/ProgressTracker.tsx
-- [ ] T139 [US4] Create exercise service in src/services/exercises/exerciseService.ts
-- [ ] T140 [US4] Add resources tab to TabNavigator in src/navigation/TabNavigator.tsx
-- [ ] T141 [US4] Integrate exercise suggestions in chatbot service in src/services/chatbot/chatbotService.ts
+- [x] T133 [P] [US4] Create SelfHelpResourcesScreen component in src/screens/resources/SelfHelpResourcesScreen.tsx
+- [x] T134 [P] [US4] Create ExerciseDetailScreen component in src/screens/resources/ExerciseDetailScreen.tsx
+- [x] T135 [P] [US4] Create ExerciseExecutionScreen component in src/screens/resources/ExerciseExecutionScreen.tsx
+- [x] T136 [P] [US4] Create ExerciseCard component in src/components/exercises/ExerciseCard.tsx
+- [x] T137 [P] [US4] Create BreathingExercise component in src/components/exercises/BreathingExercise.tsx
+- [x] T138 [P] [US4] Create ProgressTracker component in src/components/exercises/ProgressTracker.tsx
+- [x] T139 [US4] Create exercise service in src/services/exercises/exerciseService.ts
+- [x] T140 [US4] Add resources tab to TabNavigator in src/navigation/TabNavigator.tsx
+- [x] T141 [US4] Integrate exercise suggestions in chatbot service in src/services/chatbot/chatbotService.ts
 
 ### Database Implementation (Milestone 2)
 
-- [ ] T142 [US4] Add SelfHelpExercise model to Prisma schema in api/prisma/schema.prisma
-- [ ] T143 [US4] Add ExerciseCompletion model to Prisma schema in api/prisma/schema.prisma
-- [ ] T144 [US4] Create database migration for SelfHelpExercise and ExerciseCompletion in api/prisma/migrations/
-- [ ] T145 [US4] Seed initial self-help exercises in api/prisma/seed.ts
-- [ ] T146 [US4] Update Prisma client after migration
+- [x] T142 [US4] Add SelfHelpExercise model to Prisma schema in api/prisma/schema.prisma
+- [x] T143 [US4] Add ExerciseCompletion model to Prisma schema in api/prisma/schema.prisma
+- [x] T144 [US4] Create database migration for SelfHelpExercise and ExerciseCompletion in api/prisma/migrations/
+- [x] T145 [US4] Seed initial self-help exercises in api/prisma/seed.ts
+- [x] T146 [US4] Update Prisma client after migration
 
 ### API Implementation (Milestone 3)
 
-- [ ] T147 [US4] Create exercise controller in api/src/controllers/exerciseController.ts
-- [ ] T148 [US4] Create exercise service in api/src/services/exerciseService.ts
-- [ ] T149 [US4] Create GET /exercises endpoint in api/src/routes/exercises.ts
-- [ ] T150 [US4] Create POST /exercises/:id/complete endpoint in api/src/routes/exercises.ts
-- [ ] T151 [US4] Implement progress tracking logic in api/src/services/exerciseService.ts
-- [ ] T152 [US4] Add exercise routes to Express server in api/src/server.ts
+- [x] T147 [US4] Create exercise controller in api/src/controllers/exerciseController.ts
+- [x] T148 [US4] Create exercise service in api/src/services/exerciseService.ts
+- [x] T149 [US4] Create GET /exercises endpoint in api/src/routes/exercises.ts
+- [x] T150 [US4] Create POST /exercises/:id/complete endpoint in api/src/routes/exercises.ts
+- [x] T151 [US4] Implement progress tracking logic in api/src/services/exerciseService.ts
+- [x] T152 [US4] Add exercise routes to Express server in api/src/server.ts
 
 ### Integration (Milestone 3)
 
-- [ ] T153 [US4] Connect frontend exercise service to API endpoints in src/services/exercises/exerciseService.ts
-- [ ] T154 [US4] Integrate exercise recommendations with mood data in api/src/services/exerciseService.ts
+- [x] T153 [US4] Connect frontend exercise service to API endpoints in src/services/exercises/exerciseService.ts
+- [x] T154 [US4] Integrate exercise recommendations with mood data in api/src/services/exerciseService.ts
 
 **Checkpoint**: At this point, User Stories 1, 2, 3, AND 4 should all work independently. User can access self-help exercises and track progress.
 
@@ -315,49 +315,49 @@
 
 ### Tests for User Story 5
 
-- [ ] T155 [P] [US5] Component test for WelcomeScreen in __tests__/screens/onboarding/WelcomeScreen.test.tsx
-- [ ] T156 [P] [US5] Component test for RoleSelectionScreen in __tests__/screens/onboarding/RoleSelectionScreen.test.tsx
-- [ ] T157 [P] [US5] Integration test for onboarding flow in __tests__/e2e/onboarding.test.ts
-- [ ] T158 [P] [US5] Contract test for role-specific endpoints in api/tests/contract/roles.test.ts
+- [x] T155 [P] [US5] Component test for WelcomeScreen in __tests__/screens/onboarding/WelcomeScreen.test.tsx
+- [x] T156 [P] [US5] Component test for RoleSelectionScreen in __tests__/screens/onboarding/RoleSelectionScreen.test.tsx
+- [x] T157 [P] [US5] Integration test for onboarding flow in __tests__/e2e/onboarding.test.ts
+- [x] T158 [P] [US5] Contract test for role-specific endpoints in api/tests/contract/roles.test.ts
 
 ### Frontend Implementation (Milestone 1)
 
-- [ ] T159 [P] [US5] Create WelcomeScreen component in src/screens/onboarding/WelcomeScreen.tsx
-- [ ] T160 [P] [US5] Create RoleSelectionScreen component in src/screens/onboarding/RoleSelectionScreen.tsx
-- [ ] T161 [P] [US5] Create ConsentPrivacyScreen component in src/screens/onboarding/ConsentPrivacyScreen.tsx
-- [ ] T162 [P] [US5] Create AccountCreationScreen component in src/screens/auth/AccountCreationScreen.tsx
-- [ ] T163 [P] [US5] Create ProviderVerificationScreen component in src/screens/auth/ProviderVerificationScreen.tsx
-- [ ] T164 [P] [US5] Create ParentSetupScreen component in src/screens/onboarding/ParentSetupScreen.tsx
-- [ ] T165 [P] [US5] Create LoginScreen component in src/screens/auth/LoginScreen.tsx
-- [ ] T166 [P] [US5] Create ProviderDashboard screen in src/screens/role-specific/ProviderDashboard.tsx
-- [ ] T167 [P] [US5] Create PartnerPairingScreen in src/screens/role-specific/PartnerPairingScreen.tsx
-- [ ] T168 [P] [US5] Create KidFriendlyHomeScreen in src/screens/role-specific/KidFriendlyHomeScreen.tsx
-- [ ] T169 [US5] Implement role-based navigation adaptation in src/navigation/AppNavigator.tsx
-- [ ] T170 [US5] Create role context provider in src/contexts/RoleContext.tsx
+- [x] T159 [P] [US5] Create WelcomeScreen component in src/screens/onboarding/WelcomeScreen.tsx
+- [x] T160 [P] [US5] Create RoleSelectionScreen component in src/screens/onboarding/RoleSelectionScreen.tsx
+- [x] T161 [P] [US5] Create ConsentPrivacyScreen component in src/screens/onboarding/ConsentPrivacyScreen.tsx
+- [x] T162 [P] [US5] Create AccountCreationScreen component in src/screens/auth/AccountCreationScreen.tsx
+- [x] T163 [P] [US5] Create ProviderVerificationScreen component in src/screens/auth/ProviderVerificationScreen.tsx
+- [x] T164 [P] [US5] Create ParentSetupScreen component in src/screens/onboarding/ParentSetupScreen.tsx
+- [x] T165 [P] [US5] Create LoginScreen component in src/screens/auth/LoginScreen.tsx
+- [x] T166 [P] [US5] Create ProviderDashboard screen in src/screens/role-specific/ProviderDashboard.tsx
+- [x] T167 [P] [US5] Create PartnerPairingScreen in src/screens/role-specific/PartnerPairingScreen.tsx
+- [x] T168 [P] [US5] Create KidFriendlyHomeScreen in src/screens/role-specific/KidFriendlyHomeScreen.tsx
+- [x] T169 [US5] Implement role-based navigation adaptation in src/navigation/AppNavigator.tsx
+- [x] T170 [US5] Create role context provider in src/contexts/RoleContext.tsx
 
 ### Database Implementation (Milestone 2)
 
-- [ ] T171 [US5] Add role-specific fields to User model in api/prisma/schema.prisma
-- [ ] T172 [US5] Add ProviderClientRelationship model to Prisma schema in api/prisma/schema.prisma
-- [ ] T173 [US5] Add PartnerPairing model to Prisma schema in api/prisma/schema.prisma
-- [ ] T174 [US5] Add FamilyGroup and FamilyGroupMember models to Prisma schema in api/prisma/schema.prisma
-- [ ] T175 [US5] Create database migration for role-specific models in api/prisma/migrations/
-- [ ] T176 [US5] Update Prisma client after migration
+- [x] T171 [US5] Add role-specific fields to User model in api/prisma/schema.prisma
+- [x] T172 [US5] Add ProviderClientRelationship model to Prisma schema in api/prisma/schema.prisma
+- [x] T173 [US5] Add PartnerPairing model to Prisma schema in api/prisma/schema.prisma
+- [x] T174 [US5] Add FamilyGroup and FamilyGroupMember models to Prisma schema in api/prisma/schema.prisma
+- [x] T175 [US5] Create database migration for role-specific models in api/prisma/migrations/
+- [x] T176 [US5] Update Prisma client after migration
 
 ### API Implementation (Milestone 3)
 
-- [ ] T177 [US5] Update registration endpoint to handle role selection in api/src/routes/auth.ts
-- [ ] T178 [US5] Create provider endpoints in api/src/routes/provider.ts
-- [ ] T179 [US5] Create partner endpoints in api/src/routes/partner.ts
-- [ ] T180 [US5] Create family group endpoints in api/src/routes/family.ts
-- [ ] T181 [US5] Implement role-based access control middleware in api/src/middleware/roleAuth.ts
-- [ ] T182 [US5] Implement HIPAA compliance for provider mode in api/src/services/providerService.ts
+- [x] T177 [US5] Update registration endpoint to handle role selection in api/src/routes/auth.ts
+- [x] T178 [US5] Create provider endpoints in api/src/routes/provider.ts
+- [x] T179 [US5] Create partner endpoints in api/src/routes/partner.ts
+- [x] T180 [US5] Create family group endpoints in api/src/routes/family.ts
+- [x] T181 [US5] Implement role-based access control middleware in api/src/middleware/roleAuth.ts
+- [x] T182 [US5] Implement HIPAA compliance for provider mode in api/src/services/providerService.ts
 
 ### Integration (Milestone 3)
 
-- [ ] T183 [US5] Connect frontend onboarding to registration API in src/services/auth/authService.ts
-- [ ] T184 [US5] Implement role-based feature adaptation in frontend services
-- [ ] T185 [US5] Add role-specific chatbot scripts in api/src/services/chatbotService.ts
+- [x] T183 [US5] Connect frontend onboarding to registration API in src/services/auth/authService.ts
+- [x] T184 [US5] Implement role-based feature adaptation in frontend services
+- [x] T185 [US5] Add role-specific chatbot scripts in api/src/services/chatbotService.ts
 
 **Checkpoint**: At this point, all user stories should work with role-specific adaptations. Users can select roles and access tailored features.
 
@@ -371,37 +371,37 @@
 
 ### Tests for User Story 6
 
-- [ ] T186 [P] [US6] Unit test for analytics service in __tests__/services/analytics.test.ts
-- [ ] T187 [P] [US6] Contract test for POST /analytics/events endpoint in api/tests/contract/analytics.test.ts
-- [ ] T188 [P] [US6] Integration test for analytics collection in __tests__/integration/analytics.test.ts
+- [x] T186 [P] [US6] Unit test for analytics service in __tests__/services/analytics.test.ts
+- [x] T187 [P] [US6] Contract test for POST /analytics/events endpoint in api/tests/contract/analytics.test.ts
+- [x] T188 [P] [US6] Integration test for analytics collection in __tests__/integration/analytics.test.ts
 
 ### Frontend Implementation (Milestone 1)
 
-- [ ] T189 [US6] Create feedback form component in src/components/common/FeedbackForm.tsx
-- [ ] T190 [US6] Integrate feedback form in chatbot completion flow in src/screens/chat/ChatbotScreen.tsx
-- [ ] T191 [US6] Create analytics service in src/services/analytics/analyticsService.ts
-- [ ] T192 [US6] Implement consent collection UI in src/screens/onboarding/ConsentPrivacyScreen.tsx
+- [x] T189 [US6] Create feedback form component in src/components/common/FeedbackForm.tsx
+- [x] T190 [US6] Integrate feedback form in chatbot completion flow in src/screens/chat/ChatbotScreen.tsx
+- [x] T191 [US6] Create analytics service in src/services/analytics/analyticsService.ts
+- [x] T192 [US6] Implement consent collection UI in src/screens/onboarding/ConsentPrivacyScreen.tsx
 
 ### Database Implementation (Milestone 2)
 
-- [ ] T193 [US6] Add AnalyticsEvent model to Prisma schema in api/prisma/schema.prisma
-- [ ] T194 [US6] Add UserFeedback model to Prisma schema in api/prisma/schema.prisma
-- [ ] T195 [US6] Create database migration for analytics models in api/prisma/migrations/
-- [ ] T196 [US6] Update Prisma client after migration
+- [x] T193 [US6] Add AnalyticsEvent model to Prisma schema in api/prisma/schema.prisma
+- [x] T194 [US6] Add UserFeedback model to Prisma schema in api/prisma/schema.prisma
+- [x] T195 [US6] Create database migration for analytics models in api/prisma/migrations/
+- [x] T196 [US6] Update Prisma client after migration
 
 ### API Implementation (Milestone 3)
 
-- [ ] T197 [US6] Create analytics controller in api/src/controllers/analyticsController.ts
-- [ ] T198 [US6] Create analytics service with anonymization in api/src/services/analyticsService.ts
-- [ ] T199 [US6] Create POST /analytics/events endpoint in api/src/routes/analytics.ts
-- [ ] T200 [US6] Create feedback collection endpoint in api/src/routes/feedback.ts
-- [ ] T201 [US6] Implement data anonymization logic in api/src/services/analyticsService.ts
-- [ ] T202 [US6] Add analytics routes to Express server in api/src/server.ts
+- [x] T197 [US6] Create analytics controller in api/src/controllers/analyticsController.ts
+- [x] T198 [US6] Create analytics service with anonymization in api/src/services/analyticsService.ts
+- [x] T199 [US6] Create POST /analytics/events endpoint in api/src/routes/analytics.ts
+- [x] T200 [US6] Create feedback collection endpoint in api/src/routes/feedback.ts
+- [x] T201 [US6] Implement data anonymization logic in api/src/services/analyticsService.ts
+- [x] T202 [US6] Add analytics routes to Express server in api/src/server.ts
 
 ### Integration (Milestone 3)
 
-- [ ] T203 [US6] Connect frontend analytics service to API in src/services/analytics/analyticsService.ts
-- [ ] T204 [US6] Implement consent-based analytics collection in src/services/analytics/analyticsService.ts
+- [x] T203 [US6] Connect frontend analytics service to API in src/services/analytics/analyticsService.ts
+- [x] T204 [US6] Implement consent-based analytics collection in src/services/analytics/analyticsService.ts
 
 **Checkpoint**: Analytics and feedback collection working with privacy compliance. All user stories complete.
 

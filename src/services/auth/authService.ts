@@ -12,6 +12,7 @@ export interface RegisterData {
   firstName?: string;
   lastName?: string;
   age?: number;
+  analyticsConsent?: boolean;
 }
 
 export interface LoginData {

@@ -6,6 +6,7 @@
 import prisma from '../config/database';
 import { generateAIResponse, AIMessage } from './aiService';
 import { detectCrisis, getCrisisResources } from './crisisDetection';
+import { getMoodEntries } from './moodService';
 
 export interface ChatbotMessage {
   role: 'user' | 'assistant' | 'system';
@@ -25,15 +26,68 @@ export interface SendMessageData {
 }
 
 /**
+ * Get role-specific conversation flow
+ */
+export const getRoleSpecificFlow = (role: string, defaultFlow: string): string => {
+  // Map roles to conversation flows
+  const roleFlowMap: Record<string, string> = {
+    Kid: 'KidFriendly',
+    Provider: 'Professional',
+    Partner: 'Couples',
+    FamilyFriends: 'GroupSupport',
+    Individual: defaultFlow,
+  };
+
+  return roleFlowMap[role] || defaultFlow;
+};
+
+/**
  * Create a new conversation
  */
 export const createConversation = async (data: CreateConversationData) => {
+  // Get recent mood data for personalization context
+  let personalizationContext: Record<string, unknown> | null = null;
+  try {
+    const recentMoods = await getMoodEntries({
+      userId: data.userId,
+      limit: 7, // Last 7 entries
+    });
+
+    if (recentMoods.length > 0) {
+      const latestMood = recentMoods[0];
+      personalizationContext = {
+        recentMoods: recentMoods.map((m) => ({
+          emotionLabels: m.emotionLabels,
+          intensity: m.intensity,
+          timestamp: m.timestamp,
+        })),
+        latestMood: {
+          emotionLabels: latestMood.emotionLabels,
+          intensity: latestMood.intensity,
+        },
+      };
+    }
+  } catch (error) {
+    // If mood data fetch fails, continue without context
+    console.error('Error fetching mood data for personalization:', error);
+  }
+
+  // Get user role for role-specific flow adaptation
+  const user = await prisma.user.findUnique({
+    where: { id: data.userId },
+    select: { role: true },
+  });
+
+  const adaptedFlow = user
+    ? getRoleSpecificFlow(user.role, data.conversationFlow)
+    : data.conversationFlow;
+
   const conversation = await prisma.chatbotConversation.create({
     data: {
       userId: data.userId,
-      conversationFlow: data.conversationFlow as any,
+      conversationFlow: adaptedFlow as any,
       messages: [],
-      personalizationContext: null,
+      personalizationContext: personalizationContext as any,
       crisisDetected: false,
       crisisResourcesProvided: false,
       isActive: true,
